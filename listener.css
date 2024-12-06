@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #121212, #282828);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: white;
+}
+
+.controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.controls h1 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #ff5722;
+}
+
+.controls label {
+    font-size: 14px;
+    margin: 10px 0;
+    display: block;
+}
+
+.controls input,
+.controls select,
+.controls button {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+}
+
+.controls button {
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.controls button:hover {
+    background: #388e3c;
+}
+
+#visualization {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}

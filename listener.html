@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualiseur Audio Dynamique</title>
+    <link rel="stylesheet" href="listener.css">
+</head>
+
+<body>
+    <div class="controls">
+        <h1>Visualiseur Audio Dynamique</h1>
+        <label for="sensitivity">Sensibilité :</label>
+        <input id="sensitivity" type="range" min="1" max="10" value="5">
+        <label for="palette">Palette de couleurs :</label>
+        <select id="palette">
+            <option value="default">Default</option>
+            <option value="warm">Chaud</option>
+            <option value="cool">Froid</option>
+        </select>
+        <button id="toggleParticles">Activer Particules</button>
+        <button id="startMicButton">Démarrer</button>
+    </div>
+    <div id="visualization"></div>
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script src="listener.js"></script>
+</body>
+
+</html>
