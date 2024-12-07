@@ -13,11 +13,11 @@ Ce projet est un visualiseur audio interactif utilisant la bibliothèque p5.js p
 
 1. Clonez le dépôt :
     ```bash
-    git clone https://github.com/Lehomar2vinci/PestoNEGRO.git
+    git clone https://github.com/Lehomar2vinci/PestoVIsualizer
     ```
 2. Naviguez vers le répertoire du projet :
     ```bash
-    cd PestoNEGRO
+    cd PestoVIsualizer
     ```
 
 ## Utilisation
