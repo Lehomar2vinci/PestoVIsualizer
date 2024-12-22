@@ -37,13 +37,10 @@ Ce projet est un visualiseur audio interactif utilisant la bibliothèque p5.js p
 - **p5.js** : Une bibliothèque JavaScript pour la création graphique et interactive.
 - **p5.sound.js** : Une extension de p5.js pour la manipulation et l'analyse du son.
 
-## Captures d'écran
-
-Ajoutez ici des captures d'écran de votre projet.
 
 ## Contribuer
 
-Les contributions sont les bienvenues ! S'il vous plaît, ouvrez une issue ou soumettez une pull request.
+Les contributions sont les bienvenues ! 
 
 ## Licence
 
