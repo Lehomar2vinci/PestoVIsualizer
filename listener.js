@@ -1,8 +1,8 @@
 let fft, micInput;
 let particles = [];
-let baseHue = 0; // Base pour le changement de couleurs
+let baseHue = 0; // Base for changing colors
 let isParticlesEnabled = false;
-let sensitivity = 2; // Sensibilité des fréquences
+let sensitivity = 2; // Frequency sensibility
 const palettes = {
   default: [
     [255, 50, 50],
@@ -70,14 +70,14 @@ function draw() {
       fft.getEnergy("treble") * sensitivity,
     ];
 
-    // Dessiner les cercles concentriques
+    // Dessignin concentrin circles
     energies.forEach((energy, i) => {
       let [r, g, b] = currentPalette[i % currentPalette.length];
       fill(r, g, b, map(energy, 0, 255, 50, 150));
       ellipse(width / 2, height / 2, map(energy, 0, 255, 100, 400));
     });
 
-    // Ajouter des particules
+    // Addin paricles
     if (isParticlesEnabled) {
       energies.forEach((energy, i) => {
         if (energy > 200) {
@@ -92,7 +92,7 @@ function draw() {
       });
     }
 
-    // Afficher et mettre à jour les particules
+    // Drawing and update particles
     for (let i = particles.length - 1; i >= 0; i--) {
       particles[i].update();
       particles[i].show();
