@@ -1,16 +1,16 @@
-# Visualiseur Audio Dynamique — Dossier Unique
+#  PestOSC - Audio Dynamic View
 
 ## Sommaire / Table of Contents
-- [1. English (Anglais)](#1-english-anglais)
+- [1. English ](#1-english-anglais)
 - [2. Français](#2-français)
-- [3. Español (Espagnol)](#3-español-espagnol)
-- [4. Português (Portugais)](#4-português-portugais)
-- [5. 日本語 (Japonais)](#5-日本語-japonais)
-- [6. 中文 (Chinois)](#6-中文-chinois)
+- [3. Español](#3-español-espagnol)
+- [4. Português](#4-português-portugais)
+- [5. 日本語](#5-日本語-japonais)
+- [6. 中文](#6-中文-chinois)
 
 ---
 
-## 1. English (Anglais)
+## 1. English
 
 # Dynamic Audio Visualizer
 
@@ -120,7 +120,7 @@ Ce projet est sous licence **MIT**. Consultez le fichier [LICENSE](LICENSE) pour
 
 ---
 
-## 3. Español (Espagnol)
+## 3. Español
 
 # Visualizador de Audio Dinámico
 
@@ -175,7 +175,7 @@ Este proyecto está bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICE
 
 ---
 
-## 4. Português (Portugais)
+## 4. Português
 
 # Visualizador de Áudio Dinâmico
 
@@ -230,7 +230,7 @@ Este projeto está licenciado sob a **Licença MIT**. Consulte o arquivo [LICENS
 
 ---
 
-## 5. 日本語 (Japonais)
+## 5. 日本語
 
 # ダイナミックオーディオビジュアライザー
 
@@ -285,7 +285,7 @@ Este projeto está licenciado sob a **Licença MIT**. Consulte o arquivo [LICENS
 
 ---
 
-## 6. 中文 (Chinois)
+## 6. 中文
 
 # 动态音频可视化器
 
