@@ -1,8 +1,10 @@
 let fft, micInput;
-let particles = [];
-let baseHue = 0; // Base for changing colors
+const particles = [];
+let baseHue = 0; // Base for changing background colors
 let isParticlesEnabled = false;
-let sensitivity = 2; // Frequency sensibility
+let sensitivity = 2; // Frequency sensitivity
+
+// Available color palettes
 const palettes = {
   default: [
     [255, 50, 50],
@@ -19,10 +21,16 @@ const palettes = {
     [100, 150, 255],
     [200, 50, 255],
   ],
+  neon: [
+    [57, 255, 20],
+    [0, 255, 255],
+    [255, 0, 255],
+  ],
 };
 let currentPalette = palettes.default;
 
-document.getElementById("startMicButton").addEventListener("click", () => {
+// Initialize microphone and FFT when the user clicks start
+function startMic() {
   if (!micInput) {
     micInput = new p5.AudioIn();
     micInput.start();
@@ -30,12 +38,12 @@ document.getElementById("startMicButton").addEventListener("click", () => {
     fft.setInput(micInput);
     document.getElementById("startMicButton").style.display = "none";
   }
-});
+}
 
-
+document.getElementById("startMicButton").addEventListener("click", startMic);
 
 document.getElementById("sensitivity").addEventListener("input", (e) => {
-  sensitivity = e.target.value;
+  sensitivity = Number(e.target.value);
 });
 
 document.getElementById("palette").addEventListener("change", (e) => {
@@ -50,19 +58,21 @@ document.getElementById("toggleParticles").addEventListener("click", () => {
 });
 
 function setup() {
-  let canvas = createCanvas(windowWidth, windowHeight);
+  const canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent("visualization");
-  colorMode(HSB);
+  colorMode(HSB); // 0-255 range for hue, saturation and brightness
   noStroke();
 }
 
 function draw() {
-  background(0, 0, 0, 25);
+  // Animated background hue for a playful effect
+  baseHue = (baseHue + 0.5) % 255;
+  background(baseHue, 100, 40, 25);
 
   if (micInput?.enabled) {
     fft.analyze();
 
-    let energies = [
+    const energies = [
       fft.getEnergy("bass") * sensitivity,
       fft.getEnergy("lowMid") * sensitivity,
       fft.getEnergy("mid") * sensitivity,
@@ -70,14 +80,14 @@ function draw() {
       fft.getEnergy("treble") * sensitivity,
     ];
 
-    // Dessignin concentrin circles
+    // Drawing concentric circles
     energies.forEach((energy, i) => {
-      let [r, g, b] = currentPalette[i % currentPalette.length];
+      const [r, g, b] = currentPalette[i % currentPalette.length];
       fill(r, g, b, map(energy, 0, 255, 50, 150));
       ellipse(width / 2, height / 2, map(energy, 0, 255, 100, 400));
     });
 
-    // Addin paricles
+    // Adding particles
     if (isParticlesEnabled) {
       energies.forEach((energy, i) => {
         if (energy > 200) {
@@ -92,7 +102,7 @@ function draw() {
       });
     }
 
-    // Drawing and update particles
+    // Draw and update particles
     for (let i = particles.length - 1; i >= 0; i--) {
       particles[i].update();
       particles[i].show();
