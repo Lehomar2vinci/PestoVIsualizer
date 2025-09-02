@@ -1,56 +1,7 @@
-<<<<<<< Updated upstream
-let fft, micInput;
-const particles = [];
-let baseHue = 0; // Base for changing background colors
-let isParticlesEnabled = false;
-let sensitivity = 2; // Frequency sensitivity
-
-// Available color palettes
-const palettes = {
-  default: [
-    [255, 50, 50],
-    [50, 255, 50],
-    [50, 50, 255],
-  ],
-  warm: [
-    [255, 100, 0],
-    [255, 50, 50],
-    [255, 200, 0],
-  ],
-  cool: [
-    [50, 200, 255],
-    [100, 150, 255],
-    [200, 50, 255],
-  ],
-  neon: [
-    [57, 255, 20],
-    [0, 255, 255],
-    [255, 0, 255],
-  ],
-};
-let currentPalette = palettes.default;
-
-// Initialize microphone and FFT when the user clicks start
-function startMic() {
-  if (!micInput) {
-    micInput = new p5.AudioIn();
-    micInput.start();
-    fft = new p5.FFT();
-    fft.setInput(micInput);
-    document.getElementById("startMicButton").style.display = "none";
-  }
-}
-
-document.getElementById("startMicButton").addEventListener("click", startMic);
-
-document.getElementById("sensitivity").addEventListener("input", (e) => {
-  sensitivity = Number(e.target.value);
-});
-=======
-/* listener.js — version corrigée (anti-doublons, unlockAudio)
-   Fonctionne avec listener.html + p5/p5.js et p5/p5.sound.js (dossier "p5").
-   Améliorations conservées : auto-gain, lissage FFT, beat basses, particules,
-   mémorisation, réduction anim, raccourcis, ton de test, messages d’état. */
+/* listener.js — resolved merge: single, improved IIFE implementation
+   Works with listener.html + p5/p5.js and p5/p5.sound.js (dossier "p5").
+   Features: auto-gain, smoothed FFT, bass beat, particles, persisted settings,
+   reduced-motion support, test tone, and status messages. */
 
 (() => {
   // ========================= Helpers statut & sécurité =========================
@@ -108,12 +59,12 @@ document.getElementById("sensitivity").addEventListener("input", (e) => {
   const SMOOTHING = 0.9;
   const SPECTRUM_BINS = 1024;
   const BG_FADE = 22;
->>>>>>> Stashed changes
 
   const palettes = {
     default: [[255, 50, 50], [50, 255, 50], [50, 50, 255]],
     warm: [[255, 100, 0], [255, 50, 50], [255, 200, 0]],
     cool: [[50, 200, 255], [100, 150, 255], [200, 50, 255]],
+    neon: [[57, 255, 20], [0, 255, 255], [255, 0, 255]],
   };
 
   // ========================= Stockage réglages =========================
@@ -143,19 +94,6 @@ document.getElementById("sensitivity").addEventListener("input", (e) => {
     }));
   }
 
-<<<<<<< Updated upstream
-function setup() {
-  const canvas = createCanvas(windowWidth, windowHeight);
-  canvas.parent("visualization");
-  colorMode(HSB); // 0-255 range for hue, saturation and brightness
-  noStroke();
-}
-
-function draw() {
-  // Animated background hue for a playful effect
-  baseHue = (baseHue + 0.5) % 255;
-  background(baseHue, 100, 40, 25);
-=======
   // ========================= Audio helpers =========================
   function ensureFFT() {
     if (!fft) {
@@ -254,7 +192,6 @@ function draw() {
       pop();
       return;
     }
->>>>>>> Stashed changes
 
     fft.analyze();
     const rawEnergies = {
@@ -265,39 +202,6 @@ function draw() {
       treble: fft.getEnergy('treble'),
     };
 
-<<<<<<< Updated upstream
-    const energies = [
-      fft.getEnergy("bass") * sensitivity,
-      fft.getEnergy("lowMid") * sensitivity,
-      fft.getEnergy("mid") * sensitivity,
-      fft.getEnergy("highMid") * sensitivity,
-      fft.getEnergy("treble") * sensitivity,
-    ];
-
-    // Drawing concentric circles
-    energies.forEach((energy, i) => {
-      const [r, g, b] = currentPalette[i % currentPalette.length];
-      fill(r, g, b, map(energy, 0, 255, 50, 150));
-      ellipse(width / 2, height / 2, map(energy, 0, 255, 100, 400));
-    });
-
-    // Adding particles
-    if (isParticlesEnabled) {
-      energies.forEach((energy, i) => {
-        if (energy > 200) {
-          particles.push(
-            new Particle(
-              random(width),
-              random(height),
-              currentPalette[i % currentPalette.length]
-            )
-          );
-        }
-      });
-    }
-
-    // Draw and update particles
-=======
     const energies = Object.fromEntries(
       Object.entries(rawEnergies).map(([k, v]) => [k, autoGain(v) * (sensitivity / 5)])
     );
@@ -306,7 +210,7 @@ function draw() {
     const maxE = Math.max(1, ...arr);
     const norm = arr.map((e) => (e / maxE) * 255);
 
-    // Cercles
+    // Cercles centraux
     norm.forEach((energy, i) => {
       const [r, g, b] = currentPalette[i % currentPalette.length];
       fill(r, g, b, map(energy, 0, 255, 40, 170));
@@ -330,8 +234,7 @@ function draw() {
         }
       });
     }
-    
->>>>>>> Stashed changes
+
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       p.update(); p.show();

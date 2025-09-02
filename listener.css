@@ -81,7 +81,6 @@ body {
     background: var(--btn-hover);
 }
 
-<<<<<<< Updated upstream
 /* Custom range slider */
 .controls input[type="range"] {
     -webkit-appearance: none;
@@ -108,7 +107,7 @@ body {
     cursor: pointer;
 }
 
-=======
+
 .controls button:active {
     transform: translateY(1px);
 }
@@ -155,7 +154,6 @@ kbd {
 }
 
 /* Canvas plein écran */
->>>>>>> Stashed changes
 #visualization {
     position: fixed;
     inset: 0;
@@ -163,8 +161,6 @@ kbd {
     height: 100%;
     z-index: 0;
 }
-<<<<<<< Updated upstream
-=======
 
 /* Petites largeurs : panneau plus compact */
 @media (max-width: 520px) {
@@ -176,4 +172,3 @@ kbd {
         max-width: none;
     }
 }
->>>>>>> Stashed changes
