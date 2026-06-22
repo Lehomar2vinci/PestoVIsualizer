@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OscToy</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+</head>
+<body>
+    <main>
+        <header class="header">
+            <button class="menuButton button" id="menuButton" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            <button class="oscillatorButton button off" id="oscillatorButton" aria-label="Oscillator On/Off">Off</button>
+            <button class="helpButton button" id="helpButton" aria-label="Help"><i class="fas fa-question-circle"></i></button>
+        </header>
+        <div id="canvasContainer" aria-label="Oscillator Canvas"></div>
+        <div class="infoText" id="infoText" aria-live="polite">Fréquence : 0 Hz | Amplitude : 0</div>
+        <div class="controlsText" id="controlsText"></div>
+        <nav class="menu" id="menu" aria-label="Paramètres">
+            <div class="menuHeader">Paramètres</div>
+            <div class="spinner">
+                <label for="oscTypeSpinner">Type d'Oscillateur:</label>
+                <select id="oscTypeSpinner">
+                    <option value="sine">Sine</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="square">Square</option>
+                </select>
+            </div>
+            <div class="toggle">
+                <label for="reverbToggle">Réverbération:</label>
+                <button id="reverbToggle" class="toggleButton on">On</button>
+            </div>
+            <div class="toggle">
+                <label for="delayToggle">Délai:</label>
+                <button id="delayToggle" class="toggleButton on">On</button>
+            </div>
+            <div class="slider">
+                <label for="volumeSlider">Volume:</label>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            <div class="slider">
+                <label for="baseFreqSlider">Fréquence de Base:</label>
+                <input type="range" id="baseFreqSlider" min="20" max="2000" step="1" value="440">
+            </div>
+            <div class="slider">
+                <label for="baseAmpSlider">Amplitude de Base:</label>
+                <input type="range" id="baseAmpSlider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            <button class="menuItem" onclick="closeMenu()">Fermer</button>
+        </nav>
+        <div class="helpText" id="helpText" role="dialog">
+            Appuyez sur 'M' pour activer/désactiver l'oscillateur.<br>
+            Utilisez les options du menu pour ajuster les paramètres.<br>
+        </div>
+    </main>
+    <script src="eventSystem.js"></script>
+    <script src="sketch.js"></script>
+</body>
+</html>

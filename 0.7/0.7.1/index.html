@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OscToy — WebAudio XY</title>
+
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- p5 uniquement (PAS de p5.sound) -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js" defer></script>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- IMPORTANT : nos scripts avec defer et dans le bon ordre -->
+    <script src="./eventSystem.js" defer></script>
+    <script src="./sketch.js" defer></script>
+</head>
+
+<body>
+    <main>
+        <div class="header" role="toolbar" aria-label="Barre d’actions">
+            <button id="menuBtn" class="btn" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+                <i class="fa-solid fa-sliders"></i> Paramètres
+            </button>
+            <button id="powerBtn" class="btn toggle off" aria-pressed="false" title="Marche/Arrêt (M)">
+                <i class="fa-solid fa-power-off"></i> <span id="powerLabel">Off</span>
+            </button>
+            <button id="helpBtn" class="btn" aria-haspopup="dialog" aria-controls="help">
+                <i class="fa-regular fa-circle-question"></i> Aide
+            </button>
+        </div>
+
+        <section id="canvasContainer" aria-label="Surface interactive"></section>
+
+        <!-- Rideau d’activation audio : NE BLOQUE PAS les clics de l’entête -->
+        <div id="gate" aria-hidden="false">
+            <div class="gate-content">
+                <button id="startBtn" class="bigPlay">
+                    <i class="fa-solid fa-volume-high"></i> Activer le son
+                </button>
+                <p class="hint">
+                    Clique ici (ou <kbd>M</kbd>) pour démarrer l’audio, puis glisse dans le canvas.<br>
+                    X → Hauteur • Y → Amplitude &amp; Brillance
+                </p>
+            </div>
+        </div>
+
+        <!-- Pads -->
+        <div id="padBoard" aria-label="Pads musicaux">
+            <button class="pad" data-i="0">1</button><button class="pad" data-i="1">2</button>
+            <button class="pad" data-i="2">3</button><button class="pad" data-i="3">4</button>
+            <button class="pad" data-i="4">5</button><button class="pad" data-i="5">6</button>
+            <button class="pad" data-i="6">7</button><button class="pad" data-i="7">8</button>
+        </div>
+
+        <!-- HUD -->
+        <div class="hud" aria-live="polite" aria-atomic="true">
+            <div id="info" class="pill infoText">Fréquence : 0 Hz | Amplitude : 0</div>
+            <div id="controls" class="pill controlsText"></div>
+        </div>
+
+        <!-- Panneau Paramètres (COMPLET) -->
+        <div id="menu" class="menu" role="region" aria-label="Paramètres">
+            <div class="groupTitle">Style & Thème</div>
+            <div class="row three">
+                <div><label for="theme">Thème</label><select id="theme"></select></div>
+                <div><label for="visualIntensity">Intensité visuelle</label><input id="visualIntensity" type="range"
+                        min="0.2" max="1" step="0.01" value="0.9"></div>
+                <div><label for="simpleMode">Mode simple</label><select id="simpleMode">
+                        <option value="on">On</option>
+                        <option value="off" selected>Off</option>
+                    </select></div>
+            </div>
+
+            <div class="groupTitle">Contrôle XY</div>
+            <div class="row three">
+                <div><label for="quantize">Quantifier X</label><select id="quantize">
+                        <option value="on" selected>Oui</option>
+                        <option value="off">Non</option>
+                    </select></div>
+                <div><label for="xyMode">Mode Y</label>
+                    <select id="xyMode">
+                        <option value="amp+bright" selected>Amplitude + Brillance</option>
+                        <option value="amp">Amplitude seule</option>
+                        <option value="bright">Brillance seule</option>
+                    </select>
+                </div>
+                <div><label for="glide">Glide (s)</label><input id="glide" type="range" min="0" max="0.2" step="0.005"
+                        value="0.04"></div>
+            </div>
+
+            <div class="groupTitle">Son & Timbre</div>
+            <div class="row three">
+                <div><label for="oscType">Oscillateur</label>
+                    <select id="oscType">
+                        <option value="sine">Sine</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="sawtooth" selected>Sawtooth</option>
+                        <option value="square">Square</option>
+                    </select>
+                </div>
+                <div><label for="voices">Polyphonie</label><input id="voices" type="range" min="1" max="8" step="1"
+                        value="4" /></div>
+                <div><label for="detune">Détune (cents)</label><input id="detune" type="range" min="0" max="20" step="1"
+                        value="7" /></div>
+            </div>
+            <div class="row three">
+                <div><label for="baseFreq">Fréquence de base (Hz)</label><input id="baseFreq" type="range" min="60"
+                        max="880" step="1" value="220" /></div>
+                <div><label for="baseAmp">Amplitude de base</label><input id="baseAmp" type="range" min="0" max="1"
+                        step="0.01" value="0.6" /></div>
+                <div><label for="resonance">Résonance filtre</label><input id="resonance" type="range" min="0.1"
+                        max="2.5" step="0.05" value="0.7" /></div>
+            </div>
+            <div class="row three">
+                <div><label for="volume">Volume master</label><input id="volume" type="range" min="0" max="1"
+                        step="0.01" value="0.8" /></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="groupTitle">Effets</div>
+            <div class="row two">
+                <button id="reverbBtn" class="btn block toggle on" aria-pressed="true">Réverb On</button>
+                <button id="delayBtn" class="btn block toggle on" aria-pressed="true">Delay On</button>
+            </div>
+
+            <div class="groupTitle">Visualiseur</div>
+            <div class="row three">
+                <div><label for="showSpectrum">Spectrum</label><select id="showSpectrum">
+                        <option value="on" selected>On</option>
+                        <option value="off">Off</option>
+                    </select></div>
+                <div><label for="showOscillo">Oscilloscope</label><select id="showOscillo">
+                        <option value="on" selected>On</option>
+                        <option value="off">Off</option>
+                    </select></div>
+                <div><label for="showParticles">Particules</label><select id="showParticles">
+                        <option value="on" selected>On</option>
+                        <option value="off">Off</option>
+                    </select></div>
+            </div>
+
+            <div class="row"><button id="resetBtn" class="btn block"><i class="fa-solid fa-rotate"></i>
+                    Réinitialiser</button></div>
+        </div>
+
+        <!-- Aide -->
+        <dialog id="help" aria-label="Aide">
+            <h3 class="helpTitle">Aide rapide</h3>
+            <ul>
+                <li><kbd>M</kbd> : Marche/Arrêt — <kbd>H</kbd> : Aide — <kbd>Esc</kbd> : Fermer</li>
+                <li>XY : <b>X</b>→Hauteur (quantif. optionnelle), <b>Y</b>→Amplitude/Brillance</li>
+                <li>Pads : clique ou touches <kbd>A</kbd>…<kbd>K</kbd></li>
+            </ul>
+            <form method="dialog"><button class="btn" value="close">Fermer</button></form>
+        </dialog>
+    </main>
+</body>
+</html>
