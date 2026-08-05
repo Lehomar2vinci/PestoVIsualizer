@@ -2,30 +2,61 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visualiseur Audio Dynamique</title>
-    <link rel="stylesheet" href="listener.css">
+    <link rel="stylesheet" href="listener.css" />
 </head>
 
 <body>
-    <div class="controls">
+    <div class="controls" role="group" aria-label="Contrôles du visualiseur audio">
         <h1>Visualiseur Audio Dynamique</h1>
+
         <label for="sensitivity">Sensibilité :</label>
-        <input id="sensitivity" type="range" min="1" max="10" value="5">
+        <input id="sensitivity" type="range" min="1" max="10" value="5" step="1" />
+
         <label for="palette">Palette de couleurs :</label>
         <select id="palette">
             <option value="default">Default</option>
             <option value="warm">Chaud</option>
             <option value="cool">Froid</option>
+            <option value="neon">Néon</option>
         </select>
-        <button id="toggleParticles">Activer Particules</button>
-        <button id="startMicButton">Démarrer</button>
+
+        <div class="row">
+            <button id="toggleParticles" aria-pressed="true">Désactiver Particules</button>
+            <label class="checkbox">
+                <input type="checkbox" id="reduceMotion" />
+                Réduire les animations
+            </label>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <button id="startMicButton">Démarrer micro</button>
+            <button id="stopAudioButton" disabled>Stop</button>
+        </div>
+
+        <label for="fileInput">Ou charger un fichier audio :</label>
+        <input id="fileInput" type="file" accept="audio/*" />
+        <button id="playPauseButton" disabled>Lire</button>
+
+        <button id="startToneButton">Démarrer ton de test</button>
+        <p id="status" class="hint" aria-live="polite"></p>
+
+        <p class="hint">
+            Astuces : <kbd>F</kbd> plein écran, <kbd>S</kbd> capture du visuel (PNG).
+        </p>
     </div>
-    <div id="visualization"></div>
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-    <script src="listener.js"></script>
+
+    <div id="visualization" aria-hidden="true"></div>
+
+    <!-- Charge EXACTEMENT une fois p5 puis p5.sound, dans cet ordre -->
+    <script src="p5/p5.js"></script>
+    <script src="p5/p5.sound.js"></script>
+    <!-- Ton code (déféré pour exécuter après le parse du HTML) -->
+    <script src="listener.js" defer></script>
 </body>
 
 </html>

@@ -18,9 +18,10 @@ This project is an interactive audio visualizer using the [p5.js](https://p5js.o
 
 ### Features
 - **Audio Visualization**: Concentric circles that change size and color based on detected audio frequencies.  
-- **Animated Particles**: Enable or disable animated particles driven by frequency energy.  
-- **Color Palette**: Choose from different color palettes (default, warm, cool).  
+- **Animated Particles**: Enable or disable animated particles driven by frequency energy.
+- **Color Palette**: Choose from different color palettes (default, warm, cool, neon).
 - **Adjustable Sensitivity**: Fine-tune the audio visualization sensitivity.
+- **Dynamic Background**: Color-shifting background reacts to the audio for extra immersion.
 
 ### Installation
 
@@ -73,9 +74,10 @@ Ce projet est un visualiseur audio interactif utilisant la bibliothèque [p5.js]
 
 ### Fonctionnalités
 - **Visualisation Audio** : Des cercles concentriques dont la taille et la couleur varient en fonction des fréquences détectées.  
-- **Particules Animées** : Activation/désactivation de particules animées en fonction de l’énergie des fréquences.  
-- **Palette de Couleurs** : Choisissez parmi différentes palettes de couleurs (par défaut, chaud, froid).  
+- **Particules Animées** : Activation/désactivation de particules animées en fonction de l’énergie des fréquences.
+- **Palette de Couleurs** : Choisissez parmi différentes palettes de couleurs (par défaut, chaud, froid, néon).
 - **Sensibilité Réglable** : Ajustez la sensibilité de la visualisation audio.
+- **Fond Dynamique** : Une couleur de fond changeante réagit à l’audio pour plus d’immersion.
 
 ### Installation
 
